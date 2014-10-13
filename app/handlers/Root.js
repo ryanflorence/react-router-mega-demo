@@ -4,6 +4,7 @@ var div = React.DOM.div;
 var h1 = React.DOM.h1;
 var br = React.DOM.br;
 var button = React.DOM.button;
+var p = React.DOM.p;
 
 function getServerProps() {
   return {
@@ -29,10 +30,17 @@ var Root = module.exports = React.createClass({
     console.log('clicked!');
   },
 
+  getInitialState: function() {
+    return {
+      whereAmI: ENV.CLIENT ? 'client' : 'server'
+    };
+  },
+
   render: function() {
     return (
       div({},
-        h1({}, 'APP YES!'),
+        h1({}, 'Where am I? ' + this.state.whereAmI),
+        p({}, 'The JS file has a forced 1 second delay so you can see when it lands'),
         button({onClick: this.log}, 'am i alive?'),
         div({},
           this.props.colors.join(', '),
