@@ -1,17 +1,14 @@
-React Boilerplate
-=================
+React Router Mega Demo
+======================
 
-Uses:
+Eventually this will be a mega demo, but right now its just a playground
+for server-side rendering with react-router.
 
-- [React Router](https://github.com/rackt/react-router)
-- [Webpack](http://webpack.github.io/)
-- [pushstate-server](https://github.com/scottcorgan/pushstate-server)
+After cloning the repo, do this so check it out:
 
 ```sh
 $ npm install
 $ ./script/dev
-# open http://localhost:3000
-# or
-$ PORT=8000 ./script/dev
+# open http://localhost:5000
 ```
 
