@@ -8,13 +8,9 @@ var p = React.DOM.p;
 
 function getServerProps() {
   return {
-    colors: ['red', 'yellow', 'green'],
-    tacos: new Promise(function(res, rej) {
-      setTimeout(function() {
-        res(['carnitas', 'pollo', 'carne asada']);
-      }, 1000);
-    })
-  }
+    colors: getColors(),
+    tacos: getTacos()
+  };
 }
 
 function getClientProps() {
@@ -22,12 +18,16 @@ function getClientProps() {
 }
 
 var Root = module.exports = React.createClass({
+
   statics: {
     getRouteProps: ENV.SERVER ? getServerProps : getClientProps
   },
 
-  log: function() {
-    console.log('clicked!');
+  getDefaultProps: function() {
+    return {
+      tacos: [],
+      colors: []
+    };
   },
 
   getInitialState: function() {
@@ -41,8 +41,7 @@ var Root = module.exports = React.createClass({
       div({},
         h1({}, 'Where am I? ' + this.state.whereAmI),
         p({}, 'The JS file has a forced 1 second delay so you can see when it lands'),
-        button({onClick: this.log}, 'am i alive?'),
-        div({},
+        p({},
           this.props.colors.join(', '),
           br(),
           this.props.tacos.join(', ')
@@ -51,4 +50,20 @@ var Root = module.exports = React.createClass({
     );
   }
 });
+
+function getColors() {
+  return new Promise(function(res, rej) {
+    setTimeout(function() {
+      res(['red', 'yellow', 'green']);
+    }, 100);
+  });
+}
+
+function getTacos() {
+  return new Promise(function(res, rej) {
+    setTimeout(function() {
+      res(['carnitas', 'pollo', 'carne asada']);
+    }, 200);
+  });
+}
 
