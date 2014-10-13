@@ -31,6 +31,7 @@ var Root = module.exports = React.createClass({
   },
 
   render: function() {
+    console.log(JSON.stringify(this.props));
     return (
       div({},
         h1({}, 'Where am I? ' + this.state.whereAmI),

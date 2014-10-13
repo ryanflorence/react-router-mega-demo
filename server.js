@@ -30,8 +30,8 @@ function renderApp(path) {
   //return indexHTML.replace(dataRegex, "{};");
 
   return new Promise(function(resolve, reject) {
+    console.log(JSON.stringify(routes.props));
     Router.renderRoutesToString(routes, path, function(err, ar, html, data) {
-      console.log(JSON.stringify(routes));
       var output = indexHTML.
         replace(htmlRegex, html).
         replace(dataRegex, JSON.stringify(data));
