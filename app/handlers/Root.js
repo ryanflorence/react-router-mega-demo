@@ -21,13 +21,7 @@ var Root = module.exports = React.createClass({
 
   statics: {
     getRouteProps: ENV.SERVER ? getServerProps : getClientProps
-  },
-
-  getDefaultProps: function() {
-    return {
-      tacos: [],
-      colors: []
-    };
+    //getRouteProps: getServerProps
   },
 
   getInitialState: function() {

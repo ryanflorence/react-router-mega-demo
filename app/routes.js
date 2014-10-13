@@ -4,7 +4,13 @@ var Routes = Router.Routes;
 
 module.exports = (
   Routes({location: "history"},
-    Route({name: 'root', path: '/', handler: require('./handlers/Root')})
+    Route({
+      handler: require('./handlers/Root'),
+      name: 'root',
+      path: '/',
+      paramNames: [],
+      children: []
+    })
   )
 );
 
