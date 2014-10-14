@@ -6,10 +6,7 @@ var routes = require('./app/routes.js');
 var indexHTML = fs.readFileSync(__dirname+'/public/index.html').toString();
 var mainJS = fs.readFileSync(__dirname+'/public/js/main.js');
 
-var timeout = 0;
 require('mach').serve(function (req, res) {
-  if (req.query.timeout)
-    timeout = req.query.timeout;
   switch (req.path) {
     case '/styles.css':
       return fs.readFileSync(__dirname+'/public/styles.css');
@@ -27,10 +24,7 @@ function renderApp(path) {
   var htmlRegex = /¡HTML!/;
   var dataRegex = /¡DATA!/;
 
-  //return indexHTML.replace(dataRegex, "{};");
-
   return new Promise(function(resolve, reject) {
-    console.log(JSON.stringify(routes.props));
     Router.renderRoutesToString(routes, path, function(err, ar, html, data) {
       var output = indexHTML.
         replace(htmlRegex, html).
@@ -47,7 +41,7 @@ function delayedJS() {
   return new Promise(function(resolve, reject) {
     setTimeout(function() {
       resolve(mainJS);
-    }, timeout);
+    }, 1000);
   });
 }
 

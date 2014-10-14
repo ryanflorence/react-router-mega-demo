@@ -23,9 +23,22 @@ var Root = module.exports = React.createClass({
     getRouteProps: ENV.SERVER ? getServerProps : getClientProps
   },
 
+  getInitialState: function() {
+    return {
+      whereAmI: 'Server'
+    };
+  },
+
+  componentDidMount: function() {
+    this.setState({whereAmI: 'Client'});
+  },
+
   render: function() {
     return (
       div({},
+        h1({}, 'Where am I?: '+this.state.whereAmI),
+        p({}, 'Open the console and see the HTML before and after the JS lands (hint, it is the same)'),
+        p({}, 'The JS has a forced 1 second delay to show texture'),
         p({},
           this.props.colors.join(', '),
           br(),
