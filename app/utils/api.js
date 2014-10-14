@@ -7,3 +7,9 @@ exports.get = function(url) {
   });
 };
 
+exports.post = function(url, data) {
+  return axios.post(HOST+url, data).then(function(res) {
+    return res.data;
+  });
+};
+
