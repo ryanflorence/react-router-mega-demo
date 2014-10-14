@@ -1,6 +1,8 @@
 #!/bin/sh
 #./node_modules/.bin/webpack --devtool inline-source-map
-./node_modules/.bin/webpack --watch --devtool inline-source-map & node server.js
+./node_modules/.bin/webpack --watch --devtool inline-source-map &
+supervisor app/server.js
 kill %2
 kill %1
+kill %0
 

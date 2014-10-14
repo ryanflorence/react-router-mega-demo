@@ -1,18 +1,19 @@
-require('./app/ENV');
+require('node-jsx').install();
+require('./ENV');
+
 var fs = require('fs');
 var Promise = require('when').Promise;
 var Router = require('react-router');
-var routes = require('./app/routes.js');
-var indexHTML = fs.readFileSync(__dirname+'/public/index.html').toString();
-var mainJS = fs.readFileSync(__dirname+'/public/js/main.js');
+var routes = require('./routes.js');
+var indexHTML = fs.readFileSync(__dirname+'/index.html').toString();
+var mainJS = fs.readFileSync(__dirname+'/../public/js/main.js');
 
 require('mach').serve(function (req, res) {
   switch (req.path) {
     case '/styles.css':
-      return fs.readFileSync(__dirname+'/public/styles.css');
+      return fs.readFileSync(__dirname+'/assets/styles.css');
     case '/js/main.js':
-      //return mainJS;
-      return delayedJS();
+      return mainJS;
     case '/favicon.ico':
       return 'haha';
     default:
@@ -32,16 +33,6 @@ function renderApp(path) {
 
       resolve(output);
     });
-  });
-}
-
-function delayedJS() {
-  // force download dely to 1 second on client-side JS file
-  // to exaggerate the effect
-  return new Promise(function(resolve, reject) {
-    setTimeout(function() {
-      resolve(mainJS);
-    }, 1000);
   });
 }
 

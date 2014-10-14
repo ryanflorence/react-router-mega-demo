@@ -1,67 +1,41 @@
+/** @jsx React.DOM */
 var React = require('react');
-var Promise = require('when').Promise;
-var div = React.DOM.div;
-var h1 = React.DOM.h1;
-var br = React.DOM.br;
-var button = React.DOM.button;
-var p = React.DOM.p;
-
-function getServerProps() {
-  return {
-    colors: getColors(),
-    tacos: getTacos()
-  };
-}
-
-function getClientProps() {
-  return window.ROUTER_PROPS.root;
-}
+var api = require('../utils/api');
 
 var Root = module.exports = React.createClass({
 
   statics: {
-    getRouteProps: ENV.SERVER ? getServerProps : getClientProps
+    getRouteProps: function() {
+      var preloadedData = ENV.CLIENT && window.ROUTER_PROPS.root;
+      return preloadedData || {
+        contactData: api.get('/contacts')
+      }
+    }
   },
 
-  getInitialState: function() {
-    return {
-      whereAmI: 'Server'
-    };
-  },
-
-  componentDidMount: function() {
-    this.setState({whereAmI: 'Client'});
+  renderContacts: function() {
+    var contacts = this.props.contactData.contacts;
+    return contacts.map(function(contact) {
+      return <li>{contact.first} {contact.last}</li>;
+    });
   },
 
   render: function() {
     return (
-      div({},
-        h1({}, 'Where am I?: '+this.state.whereAmI),
-        p({}, 'Open the console and see the HTML before and after the JS lands (hint, it is the same)'),
-        p({}, 'The JS has a forced 1 second delay to show texture'),
-        p({},
-          this.props.colors.join(', '),
-          br(),
-          this.props.tacos.join(', ')
-        )
-      )
+      <div>
+        <h1>Hello Again!</h1>
+        <ul>
+          {this.renderContacts()}
+        </ul>
+      </div>
     );
   }
 });
 
-function getColors() {
-  return new Promise(function(res, rej) {
-    setTimeout(function() {
-      res(['red', 'yellow', 'green']);
-    }, 100);
-  });
-}
-
-function getTacos() {
-  return new Promise(function(res, rej) {
-    setTimeout(function() {
-      res(['carnitas', 'pollo', 'carne asada']);
-    }, 200);
+function fakeContacts() {
+  var url = 'http://addressbook-api.herokuapp.com/contacts';
+  return axios.get(url).then(function(res) {
+    return res.data;
   });
 }
 
