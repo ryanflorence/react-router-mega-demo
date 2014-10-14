@@ -10,13 +10,13 @@ var mainJS = fs.readFileSync(__dirname+'/../public/js/main.js');
 
 require('mach').serve(function (req, res) {
   switch (req.path) {
-    case '/styles.css':
-      return fs.readFileSync(__dirname+'/assets/styles.css');
     case '/js/main.js':
       return mainJS;
     case '/favicon.ico':
       return 'haha';
     default:
+      if (req.path.match(/^\/styles.css/))
+        return fs.readFileSync(__dirname+'/assets/styles.css');
       return renderApp(req.path);
   }
 }, process.env.PORT || 5000);

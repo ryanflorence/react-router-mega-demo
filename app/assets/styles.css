@@ -1,8 +1,113 @@
 body {
-  background: pink;
+  font-family: "Helvetica Neue";
+  font-weight: 200;
 }
 
-a.active {
-  color: red;
+h1, h2 {
+  font-weight: normal;
 }
+
+a {
+  text-decoration: none;
+  color: #007adc;
+}
+
+a:active {
+  color: #ff3b30;
+}
+
+.App {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.Master {
+  position: absolute;
+  left: 0;
+  width: 300px;
+  top: 0;
+  bottom: 0;
+}
+
+.Detail {
+  position: absolute;
+  left: 302px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.ContactList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ContactList__Contact {
+  display: block;
+  padding: 4px 8px;
+  font-size: 120%;
+}
+
+.Heading {
+  margin: 0;
+  text-align: center;
+  padding: 10px;
+  background: #007adc;
+  color: #fff;
+  font-size: 100%;
+  box-sizing: border-box;
+  height: 40px;
+}
+
+.Heading--alt {
+  background-color: #4cd964;
+}
+
+.Content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 41px;
+  bottom: 0;
+  overflow: scroll;
+}
+
+.padBox {
+  padding: 20px;
+}
+
+.Avatar {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  background: #ccc;
+  display: inline-block;
+  margin: 20px;
+}
+
+.KVSet {
+  margin: 20px;
+}
+
+.KV {
+  display: flex;
+  flex-direction: row;
+}
+
+.KV__Key,
+.KV__Value {
+  box-sizing: border-box;
+  margin: 10px;
+  font-size: 150%;
+}
+
+.KV__Key {
+  width: 150px;
+  color: hsl(0, 0%, 75%);
+}
+
 
