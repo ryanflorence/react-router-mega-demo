@@ -4,5 +4,4 @@
 supervisor app/server.js
 kill %2
 kill %1
-kill %0
 
