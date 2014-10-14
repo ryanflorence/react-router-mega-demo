@@ -1,16 +1,14 @@
 /** @jsx React.DOM */
 var React = require('react');
 var api = require('../utils/api');
+var ContactStore = require('../stores/ContactStore');
 
 var Contact = module.exports = React.createClass({
 
   statics: {
     getRouteProps: function(params) {
-      var preloadedData = ENV.CLIENT && window.ROUTER_PROPS.contact;
-      return preloadedData || {
-        contact: api.get('/contacts/'+params.id).then(function(res) {
-          return res.contact;
-        })
+      return {
+        contact: ContactStore.getById(params.id)
       };
     }
   },
@@ -38,12 +36,6 @@ var Contact = module.exports = React.createClass({
             <div className="KV">
               <div className="KV__Key">Avatar URL</div>
               <div className="KV__Value">{contact.avatar}</div>
-            </div>
-            <div className="KV">
-              <div className="KV__Key"> </div>
-              <div className="KV__Value">
-                <a onClick={this.startEditing} href="#">edit</a>
-              </div>
             </div>
           </div>
         </div>

@@ -2,7 +2,6 @@
 var React = require('react');
 var api = require('../utils/api');
 var Link = require('react-router').Link;
-var NewContactForm = require('../components/NewContactForm');
 var ContactStore = require('../stores/ContactStore');
 
 var Root = module.exports = React.createClass({
@@ -65,6 +64,12 @@ var Root = module.exports = React.createClass({
           <h2 className="Heading">Contacts</h2>
           <div className="Content">
             <ul className="ContactList">
+              <li>
+                <Link
+                  className="ContactList__Contact ContactList__Contact--new"
+                  to="newContact"
+                >New Contact</Link>
+              </li>
               {this.renderContacts()}
             </ul>
           </div>

@@ -12,7 +12,7 @@ a {
   color: #007adc;
 }
 
-a:active {
+a.active {
   color: #ff3b30;
 }
 
@@ -50,6 +50,11 @@ a:active {
   display: block;
   padding: 4px 8px;
   font-size: 120%;
+}
+
+
+.ContactList__Contact--new {
+  color: #4cd964;
 }
 
 .Heading {
