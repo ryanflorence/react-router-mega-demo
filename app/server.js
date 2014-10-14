@@ -24,7 +24,6 @@ require('mach').serve(function (req, res) {
 function renderApp(path) {
   var htmlRegex = /¡HTML!/;
   var dataRegex = /¡DATA!/;
-
   return new Promise(function(resolve, reject) {
     Router.renderRoutesToString(routes, path, function(err, ar, html, data) {
       var output = indexHTML.
@@ -35,4 +34,3 @@ function renderApp(path) {
     });
   });
 }
-

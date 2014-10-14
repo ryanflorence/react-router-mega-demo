@@ -1,14 +1,16 @@
+/** @jsx React.DOM */
+
 var Router = require('react-router');
-var Route = Router.Route;
 var Routes = Router.Routes;
+var Route = Router.Route;
+var DefaultRoute = Router.DefaultRoute;
 
 module.exports = (
-  Routes({location: "history"},
-    Route({
-      handler: require('./handlers/Root'),
-      name: 'root',
-      path: '/'
-    })
-  )
+  <Routes location="history">
+    <Route name="root" path="/" handler={require('./handlers/Root')}>
+      <DefaultRoute handler={require('./handlers/Home')} />
+      <Route name="contact" path=":id" handler={require('./handlers/Contact')} />
+    </Route>
+  </Routes>
 );
 
