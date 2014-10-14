@@ -21,21 +21,11 @@ var Root = module.exports = React.createClass({
 
   statics: {
     getRouteProps: ENV.SERVER ? getServerProps : getClientProps
-    //getRouteProps: getServerProps
-  },
-
-  getInitialState: function() {
-    return {
-      whereAmI: ENV.CLIENT ? 'client' : 'server'
-    };
   },
 
   render: function() {
-    console.log(JSON.stringify(this.props));
     return (
       div({},
-        h1({}, 'Where am I? ' + this.state.whereAmI),
-        p({}, 'The JS file has a forced 1 second delay so you can see when it lands'),
         p({},
           this.props.colors.join(', '),
           br(),

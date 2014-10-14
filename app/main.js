@@ -1,9 +1,9 @@
 require('./ENV');
 var React = require('react');
 var routes = require('./routes');
-console.log(JSON.stringify(routes.props));
-React.renderComponent(routes, document.getElementById('app'));
+var div = document.getElementById('app');
+console.log(div.innerHTML);
+React.renderComponent(routes, div, function() {
+  console.log(div.innerHTML);
+});
 
-//require('react-router').renderRoutesToString(routes, '/', function(err, ar, html, data) {
-  //debugger;
-//});

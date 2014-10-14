@@ -7,9 +7,7 @@ module.exports = (
     Route({
       handler: require('./handlers/Root'),
       name: 'root',
-      path: '/',
-      paramNames: [],
-      children: []
+      path: '/'
     })
   )
 );
