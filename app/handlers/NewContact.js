@@ -15,7 +15,7 @@ var NewContactForm = module.exports = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="Detail">
         <h1 className="Heading Heading--alt">New Contact</h1>
         <div className="Content padBox">
           <form

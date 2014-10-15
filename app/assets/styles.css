@@ -47,13 +47,17 @@ a.active {
 }
 
 .ContactList__Contact {
+  box-sizing: border-box;
+  transition: all 500ms ease;
+}
+
+.ContactList__Link {
   display: block;
   padding: 4px 8px;
   font-size: 120%;
 }
 
-
-.ContactList__Contact--new {
+.ContactList__Link--new {
   color: #4cd964;
 }
 
@@ -114,5 +118,27 @@ a.active {
   width: 150px;
   color: hsl(0, 0%, 75%);
 }
+
+.detail-enter {
+  -webkit-transform: scale(0.1);
+  opacity: 0;
+  transition: all 200ms ease;
+}
+
+.detail-enter.detail-enter-active {
+  opacity: 1;
+  -webkit-transform: scale(1);
+}
+
+.detail-leave {
+  -webkit-transform: scale(1);
+  opacity: 1;
+  transition: all 200ms ease;
+}
+
+.detail-leave.detail-leave-active {
+  opacity: 0;
+}
+
 
 

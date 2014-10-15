@@ -3,8 +3,12 @@ var React = require('react');
 var api = require('../utils/api');
 var Link = require('react-router').Link;
 var ContactStore = require('../stores/ContactStore');
+var ActiveState = require('react-router').ActiveState;
+var TransitionGroup = require('react/lib/ReactCSSTransitionGroup');
 
 var Root = module.exports = React.createClass({
+
+  mixins: [ActiveState],
 
   statics: {
     getRouteProps: function() {
@@ -41,12 +45,15 @@ var Root = module.exports = React.createClass({
     if (!this.props.contacts)
       return null;
 
-    var contacts = this.state.contacts.records;
-    return contacts.map(function(contact) {
+    return this.state.contacts.records.slice(0).sort(function(a, b) {
+      a = (a.first+' '+a.last).toLowerCase();
+      b = (b.first+' '+b.last).toLowerCase();
+      return a > b ? 1 : a < b ? -1 : 0
+    }).map(function(contact) {
       return (
-        <li key={contact.id}>
+        <li className="ContactList__Contact" key={contact.id}>
           <Link
-            className="ContactList__Contact"
+            className="ContactList__Link"
             to="contact"
             params={{id: contact.id}}
           >
@@ -64,9 +71,9 @@ var Root = module.exports = React.createClass({
           <h2 className="Heading">Contacts</h2>
           <div className="Content">
             <ul className="ContactList">
-              <li>
+              <li className="ContactList__Contact" key="__newLink__">
                 <Link
-                  className="ContactList__Contact ContactList__Contact--new"
+                  className="ContactList__Link ContactList__Link--new"
                   to="newContact"
                 >New Contact</Link>
               </li>
@@ -75,9 +82,9 @@ var Root = module.exports = React.createClass({
           </div>
         </div>
 
-        <div className="Detail">
+        <TransitionGroup transitionName="detail">
           {this.props.activeRouteHandler()}
-        </div>
+        </TransitionGroup>
       </div>
     );
   }
