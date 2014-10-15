@@ -15,13 +15,15 @@ if (ENV.CLIENT && window.ROUTER_PROPS.root)
   setState(window.ROUTER_PROPS.root.contacts);
 
 exports.getById = function(id) {
-  var preloaded = ENV.CLIENT && window.ROUTER_PROPS.contact;
-  if (preloaded && preloaded.contact.id === id)
-    return preloaded.contact;
+  if (ENV.CLIENT) {
+    var preloaded = window.ROUTER_PROPS.contact;
+    if (preloaded && preloaded.contact.id === id)
+      return preloaded.contact;
 
-  var cached = _state.map[id];
-  if (cached)
-    return cached;
+    var cached = _state.map[id];
+    if (cached)
+      return cached;
+  }
 
   return api.get('/contacts/'+id).then(function(res) {
     return res.contact;
@@ -29,7 +31,7 @@ exports.getById = function(id) {
 };
 
 exports.getAll = function() {
-  if (_state.loaded) {
+  if (ENV.CLIENT && _state.loaded) {
     // MUST BE SYNC. Otherwise we render one the client once while waiting for
     // the promise and then the checksum doesn't match up
     return _state;
