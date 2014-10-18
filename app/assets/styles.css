@@ -83,6 +83,7 @@ a.active {
   top: 41px;
   bottom: 0;
   overflow: scroll;
+  background: #fff;
 }
 
 .padBox {
@@ -120,25 +121,20 @@ a.active {
 }
 
 .detail-enter {
-  -webkit-transform: scale(0.1);
-  opacity: 0;
-  transition: all 200ms ease;
+  opacity: 0.01;
+  transition: opacity 500ms ease;
 }
 
 .detail-enter.detail-enter-active {
   opacity: 1;
-  -webkit-transform: scale(1);
 }
 
 .detail-leave {
-  -webkit-transform: scale(1);
+  transition: opacity 500ms ease;
   opacity: 1;
-  transition: all 200ms ease;
 }
 
 .detail-leave.detail-leave-active {
-  opacity: 0;
+  opacity: 0.01;
 }
-
-
 
