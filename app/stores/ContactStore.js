@@ -4,6 +4,9 @@ var EventEmitter = require('events').EventEmitter;
 var k = function() {};
 var mergeInto = require('react/lib/mergeInto');
 var _events = new EventEmitter();
+var Router = require('react-router');
+var canUseDOM = require('react/lib/ExecutionEnvironment').canUseDOM;
+
 
 var _state = {
   loaded: false,
@@ -11,19 +14,18 @@ var _state = {
   map: {}
 };
 
-if (ENV.CLIENT && window.ROUTER_PROPS.root)
-  setState(window.ROUTER_PROPS.root.contacts);
+var prerenderData = Router.getAsyncPropsForRoute('root');
+if (prerenderData)
+  setState(prerenderData.contacts);
 
 exports.getById = function(id) {
-  if (ENV.CLIENT) {
-    var preloaded = window.ROUTER_PROPS.contact;
-    if (preloaded && preloaded.contact.id === id)
-      return preloaded.contact;
+  var preloaded = Router.getAsyncPropsForRoute('contact');
+  if (preloaded)
+    return preloaded.contact;
 
-    var cached = _state.map[id];
-    if (cached)
-      return cached;
-  }
+  var cached = _state.map[id];
+  if (cached)
+    return cached;
 
   return api.get('/contacts/'+id).then(function(res) {
     return res.contact;

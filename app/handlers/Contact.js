@@ -6,7 +6,7 @@ var ContactStore = require('../stores/ContactStore');
 var Contact = module.exports = React.createClass({
 
   statics: {
-    getRouteProps: function(params) {
+    getAsyncProps: function(params) {
       return {
         contact: ContactStore.getById(params.id)
       };

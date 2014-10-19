@@ -11,7 +11,7 @@ var Root = module.exports = React.createClass({
   mixins: [ActiveState],
 
   statics: {
-    getRouteProps: function() {
+    getAsyncProps: function() {
       return {
         contacts: ContactStore.getAll()
       };
