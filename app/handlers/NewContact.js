@@ -10,7 +10,8 @@ var NewContactForm = module.exports = React.createClass({
     event.preventDefault();
     var first = this.refs.first.getDOMNode().value;
     var last = this.refs.last.getDOMNode().value;
-    this.transitionTo('createContact', {}, {first: first, last: last});
+    var avatar = this.refs.avatar.getDOMNode().avatar;
+    this.transitionTo('createContact', {}, {first: first, last: last, avatar: avatar});
   },
 
   render: function() {
@@ -23,9 +24,10 @@ var NewContactForm = module.exports = React.createClass({
             onSubmit={this.handleSubmit}
           >
             <p>
-              <input ref="first" name="first" placeholder="first name"
-              /> <input ref="last" name="last" placeholder="last name"
-              /> <button type="submit">Add</button>
+              <input ref="first" name="first" placeholder="first name"/><br/>
+              <input ref="last" name="last" placeholder="last name"/><br/>
+              <input ref="avatar" name="avatar" placeholder="avatar url"/><br/>
+              <button type="submit">Add</button>
             </p>
           </form>
         </div>
