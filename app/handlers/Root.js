@@ -1,55 +1,26 @@
-/** @jsx React.DOM */
 var React = require('react');
-var api = require('../utils/api');
-var Link = require('react-router').Link;
-var ContactStore = require('../stores/ContactStore');
-var ActiveState = require('react-router').ActiveState;
+var { Link, RouteHandler } = require('react-router');
 var TransitionGroup = require('react/lib/ReactCSSTransitionGroup');
+var api = require('../utils/api');
+
+var sortContacts = (contacts) => {
+  return contacts.slice(0).sort((a, b) => {
+    a = (a.first+' '+a.last).toLowerCase();
+    b = (b.first+' '+b.last).toLowerCase();
+    return a > b ? 1 : a < b ? -1 : 0;
+  });
+};
 
 var Root = module.exports = React.createClass({
 
-  mixins: [ActiveState],
-
   statics: {
-    getAsyncProps: function() {
-      return {
-        contacts: ContactStore.getAll()
-      };
+    fetchData: () => {
+      return api.get('/contacts', 'contacts');
     }
   },
 
-  getInitialState: function() {
-    return {
-      contacts: this.props.contacts
-    };
-  },
-
-  componentWillReceiveProps: function(newProps) {
-    // because we have to put it on state, we have to get the new props
-    this.setState({contacts: newProps.contacts});
-  },
-
-  componentDidMount: function() {
-    ContactStore.addChangeListener(this.handleContactsChange);
-  },
-
-  componentWillUnmount: function() {
-    ContactStore.removeChangeListener(this.handleContactsChange);
-  },
-
-  handleContactsChange: function() {
-    this.setState({contactData: ContactStore.getAll()});
-  },
-
   renderContacts: function() {
-    if (!this.props.contacts)
-      return null;
-
-    return this.state.contacts.records.slice(0).sort(function(a, b) {
-      a = (a.first+' '+a.last).toLowerCase();
-      b = (b.first+' '+b.last).toLowerCase();
-      return a > b ? 1 : a < b ? -1 : 0
-    }).map(function(contact) {
+    return sortContacts(this.props.data.root.contacts).map((contact) => {
       return (
         <li className="ContactList__Contact" key={contact.id}>
           <Link
@@ -83,7 +54,7 @@ var Root = module.exports = React.createClass({
         </div>
 
         <TransitionGroup transitionName="detail">
-          {this.props.activeRouteHandler()}
+          <RouteHandler {...this.props} />
         </TransitionGroup>
       </div>
     );

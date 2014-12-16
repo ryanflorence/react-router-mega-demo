@@ -8,21 +8,22 @@
   "license": "MIT",
   "dependencies": {
     "axios": "0.4.0",
-    "mach": "git://github.com/mjackson/mach#1.0",
-    "node-jsx": "0.11.0",
-    "pushstate-server": "^0.2.0",
-    "react": "0.11.0",
-    "react-router": "git://github.com/rackt/react-router#async-props",
-    "uglify-js": "2.4.15",
-    "when": "3.5.0",
-    "bundle-loader": "^0.5.1",
+    "bundle-loader": "0.5.2",
     "expose-loader": "0.5.3",
-    "jsx-loader": "^0.10.2",
+    "jsx-loader": "0.10.2",
+    "mach": "git://github.com/mjackson/mach#1.0",
+    "node-jsx": "0.12.4",
+    "pushstate-server": "0.2.0",
+    "react": "0.12.1",
+    "react-router": "0.11.5",
     "react-tools": "0.11.2",
-    "webpack": "^1.3.0-beta5"
+    "uglify-js": "2.4.15",
+    "webpack": "^1.3.0-beta5",
+    "when": "3.5.0"
   },
   "devDependencies": {
     "assert": "^1.1.1",
+    "jsx-loader": "0.12.2",
     "karma": "^0.12.16",
     "karma-chrome-launcher": "^0.1.4",
     "karma-cli": "0.0.4",
@@ -30,6 +31,7 @@
     "karma-mocha": "^0.1.4",
     "karma-webpack": "^1.2.1",
     "mocha": "^1.20.1",
+    "react-router": "^0.11.5",
     "webpack-dev-server": "^1.4.6"
   }
 }

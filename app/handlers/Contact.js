@@ -1,24 +1,17 @@
 /** @jsx React.DOM */
 var React = require('react');
 var api = require('../utils/api');
-var ContactStore = require('../stores/ContactStore');
 
 var Contact = module.exports = React.createClass({
 
   statics: {
-    getAsyncProps: function(params) {
-      return {
-        contact: ContactStore.getById(params.id)
-      };
+    fetchData: function(params) {
+      return api.get(`/contacts/${params.id}`, 'contact');
     }
   },
 
   render: function() {
-    var contact = this.props.contact;
-
-    if (!contact)
-      return <div/>;
-
+    var contact = this.props.data.contact.contact;
     return (
       <div className="Detail">
         <div className="Contact">

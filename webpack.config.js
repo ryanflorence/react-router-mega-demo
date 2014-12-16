@@ -12,7 +12,7 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.js$/, loader: 'jsx-loader' },
+      { test: /\.js$/, loader: 'jsx-loader?harmony&insertPragma=React.DOM' },
       { test: require.resolve('react'), loader: 'expose?React' }
     ]
   }

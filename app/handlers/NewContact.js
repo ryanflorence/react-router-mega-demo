@@ -1,10 +1,9 @@
-/** @jsx React.DOM */
 var React = require('react');
-var Navigation = require('react-router').Navigation;
+var { Navigation } = require('react-router');
 
 var NewContactForm = module.exports = React.createClass({
 
-  mixins: [Navigation],
+  mixins: [ Navigation ],
 
   handleSubmit: function(event) {
     event.preventDefault();
@@ -23,12 +22,10 @@ var NewContactForm = module.exports = React.createClass({
             action="/createContact"
             onSubmit={this.handleSubmit}
           >
-            <p>
-              <input ref="first" name="first" placeholder="first name"/><br/>
-              <input ref="last" name="last" placeholder="last name"/><br/>
-              <input ref="avatar" name="avatar" placeholder="avatar url"/><br/>
-              <button type="submit">Add</button>
-            </p>
+            <p><input ref="first" name="first" placeholder="first name"/></p>
+            <p><input ref="last" name="last" placeholder="last name"/></p>
+            <p><input ref="avatar" name="avatar" placeholder="avatar url"/></p>
+            <p><button type="submit">Add</button></p>
           </form>
         </div>
       </div>
