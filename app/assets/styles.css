@@ -28,18 +28,30 @@ a.active {
   opacity: 0.5;
 }
 
+.TopBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  line-height: 20px;
+  background: #ccc;
+  font-size: 14px;
+  text-align: center;
+}
+
 .Master {
   position: absolute;
   left: 0;
   width: 300px;
-  top: 0;
+  top: 20px;
   bottom: 0;
 }
 
 .Detail {
   position: absolute;
   left: 302px;
-  top: 0;
+  top: 20px;
   bottom: 0;
   right: 0;
 }

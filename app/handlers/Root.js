@@ -2,6 +2,9 @@ var React = require('react');
 var { Link, RouteHandler } = require('react-router');
 var TransitionGroup = require('react/lib/ReactCSSTransitionGroup');
 var api = require('../utils/api');
+var twitter = "http://twitter.com/ryanflorence";
+var rr = "https://github.com/rackt/react-router";
+var source = "https://github.com/rackt/react-router-mega-demo";
 
 var sortContacts = (contacts) => {
   return contacts.slice(0).sort((a, b) => {
@@ -59,6 +62,9 @@ var Root = module.exports = React.createClass({
       className += ' App--loading';
     return (
       <div className={className}>
+        <div className="TopBar">
+          Made by <a href={twitter}>Ryan Florence</a> with <a href={rr}>React Router</a>. View the <a href={source}>Source Code</a>.
+        </div>
         <div className="Master">
           <h2 className="Heading">Contacts</h2>
           <div className="Content">
