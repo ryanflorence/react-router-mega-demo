@@ -24,6 +24,10 @@ a.active {
   left: 0;
 }
 
+.App--loading {
+  opacity: 0.5;
+}
+
 .Master {
   position: absolute;
   left: 0;

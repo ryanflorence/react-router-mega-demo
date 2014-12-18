@@ -19,6 +19,24 @@ var Root = module.exports = React.createClass({
     }
   },
 
+  getInitialState () {
+    return { longLoad: false };
+  },
+
+  componentDidMount () {
+    var timeout;
+    this.props.loadingEvents.on('start', () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        this.setState({ longLoad: true });
+      }, 250);
+    });
+    this.props.loadingEvents.on('end', () => {
+      clearTimeout(timeout);
+      this.setState({ longLoad: false });
+    });
+  },
+
   renderContacts: function() {
     return sortContacts(this.props.data.root.contacts).map((contact) => {
       return (
@@ -36,8 +54,11 @@ var Root = module.exports = React.createClass({
   },
 
   render: function() {
+    var className = 'App';
+    if (this.state.longLoad)
+      className += ' App--loading';
     return (
-      <div className="App">
+      <div className={className}>
         <div className="Master">
           <h2 className="Heading">Contacts</h2>
           <div className="Content">
