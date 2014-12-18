@@ -1,4 +1,3 @@
-require('./ENV');
 var http = require('http');
 var fs = require('fs');
 var React = require('react');
