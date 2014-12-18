@@ -5,8 +5,8 @@ var api = require('../utils/api');
 var Contact = module.exports = React.createClass({
 
   statics: {
-    fetchData: function(params) {
-      return api.get(`/contacts/${params.id}`, 'contact');
+    fetchData: function(token, params, query) {
+      return api.get(`/contacts/${params.id}`, token);
     }
   },
 

@@ -14,8 +14,8 @@ var sortContacts = (contacts) => {
 var Root = module.exports = React.createClass({
 
   statics: {
-    fetchData: () => {
-      return api.get('/contacts', 'contacts');
+    fetchData: (token, params, query) => {
+      return api.get('/contacts', token);
     }
   },
 
