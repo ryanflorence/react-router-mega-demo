@@ -57,7 +57,7 @@ var renderApp = (req, cb) => {
 var app = http.createServer((req, res) => {
   switch (req.url) {
     case '/js/main.js':
-      return write(mainJS, 'text/javascript', res);
+      return write(''/*mainJS*/, 'text/javascript', res);
     case '/favicon.ico':
       return write('haha', 'text/plain', res);
     case '/styles.css':
