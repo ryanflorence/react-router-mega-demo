@@ -28,7 +28,9 @@ var renderApp = (req, cb) => {
   var router = Router.create({
     routes: getRoutes(token),
     location: path,
-    onAbort: cb,
+    onAbort: function (redirect) {
+      cb({redirect});
+    },
     onError: function (err) {
       console.log('Routing Error');
       console.log(err);
@@ -36,6 +38,11 @@ var renderApp = (req, cb) => {
   });
 
   router.run((Handler, state) => {
+    if (state.routes[0].name === 'not-found') {
+      var html = React.renderToStaticMarkup(<Handler/>);
+      cb({notFound: true}, html);
+      return;
+    }
     fetchData(token, state).then((data) => {
       var clientHandoff = { token, data: cache.clean(token) };
       var html = React.renderToString(<Handler data={data} />);
@@ -56,15 +63,20 @@ var app = http.createServer((req, res) => {
     case '/styles.css':
       return write(styles, 'text/css', res);
     default:
-      renderApp(req, (redirect, html, token) => {
-        if (redirect) {
-          res.writeHead(303, { 'Location': redirect.to });
-          res.end();
-        }
-        else {
+      renderApp(req, (error, html, token) => {
+        if (!error) {
           write(html, 'text/html', res, cookie.serialize('token', token, {
             maxAge: 30*24*60*60
           }));
+        }
+        else if (error.redirect) {
+          res.writeHead(303, { 'Location': error.redirect.to });
+          res.end();
+        }
+        else if (error.notFound) {
+          res.writeHead(404, { 'Content-Type': 'text/html' });
+          res.write(html);
+          res.end();
         }
       });
   }
