@@ -28,7 +28,11 @@ var renderApp = (req, cb) => {
   var router = Router.create({
     routes: getRoutes(token),
     location: path,
-    onAbort: cb
+    onAbort: cb,
+    onError: function (err) {
+      console.log('Routing Error');
+      console.log(err);
+    }
   });
 
   router.run((Handler, state) => {
