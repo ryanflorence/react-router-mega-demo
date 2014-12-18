@@ -9,8 +9,8 @@ var NewContactForm = module.exports = React.createClass({
     event.preventDefault();
     var first = this.refs.first.getDOMNode().value;
     var last = this.refs.last.getDOMNode().value;
-    var avatar = this.refs.avatar.getDOMNode().avatar;
-    this.transitionTo('createContact', {}, {first: first, last: last, avatar: avatar});
+    var avatar = this.refs.avatar.getDOMNode().value;
+    this.transitionTo('createContact', {}, {first, last, avatar});
   },
 
   render: function() {

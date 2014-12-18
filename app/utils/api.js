@@ -1,8 +1,9 @@
 var Promise = require('when').Promise;
 var axios = require('axios');
-var HOST = 'http://addressbook-api.herokuapp.com';
 var cache = require('./cache');
-var events = require('events').EventEmitter;
+
+var HOST = 'http://addressbook-api.herokuapp.com';
+//var HOST = 'http://localhost:5001';
 
 exports.get = (url, token) => {
   var cached = cache.get(token, url);
@@ -10,18 +11,20 @@ exports.get = (url, token) => {
     Promise.resolve(cached) :
     axios({
       url: HOST+url,
-      headers: {}
+      headers: { 'Authorization': token }
     }).then(function(res) {
       cache.set(token, url, res.data);
       return res.data;
     });
 };
 
-exports.post = (url, data) => {
+exports.post = (url, data, token) => {
   return axios({
-      url: HOST+url,
-      headers: {}
-    }).then(function(res) {
+    method: 'post',
+    data: data,
+    url: HOST+url,
+    headers: { 'Authorization': token }
+  }).then(function(res) {
     return res.data;
   });
 };
