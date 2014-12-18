@@ -11,19 +11,12 @@ var indexHTML = fs.readFileSync(__dirname+'/index.html').toString();
 var mainJS = fs.readFileSync(__dirname+'/../public/js/main.js');
 var styles = fs.readFileSync(__dirname+'/assets/styles.css');
 var write = require('./utils/write');
-var cookie = require('cookie');
+var Cookies = require('cookies');
 
-var getToken = (req) => {
-  if (req.headers.cookie)
-    return cookie.parse(req.headers.cookie).token;
-  return uuid();
-};
-
-var renderApp = (req, cb) => {
+var renderApp = (req, token, cb) => {
   var path = req.url;
   var htmlRegex = /¡HTML!/;
   var dataRegex = /¡DATA!/;
-  var token = getToken(req);
 
   var router = Router.create({
     routes: getRoutes(token),
@@ -55,19 +48,21 @@ var renderApp = (req, cb) => {
 };
 
 var app = http.createServer((req, res) => {
+  var cookies = new Cookies(req, res);
+  var token = cookies.get('token') || uuid();
+  cookies.set('token', token, { maxAge: 30*24*60*60 });
+
   switch (req.url) {
     case '/js/main.js':
-      return write(''/*mainJS*/, 'text/javascript', res);
+      return write(mainJS, 'text/javascript', res);
     case '/favicon.ico':
       return write('haha', 'text/plain', res);
     case '/styles.css':
       return write(styles, 'text/css', res);
     default:
-      renderApp(req, (error, html, token) => {
+      renderApp(req, token, (error, html, token) => {
         if (!error) {
-          write(html, 'text/html', res, cookie.serialize('token', token, {
-            maxAge: 30*24*60*60
-          }));
+          write(html, 'text/html', res);
         }
         else if (error.redirect) {
           res.writeHead(303, { 'Location': error.redirect.to });
