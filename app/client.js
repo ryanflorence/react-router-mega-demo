@@ -1,5 +1,4 @@
 /** @jsx React.DOM */
-require('./ENV');
 var React = require('react');
 var Router = require('react-router');
 var getRoutes = require('./routes');
